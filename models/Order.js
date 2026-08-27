@@ -23,7 +23,18 @@ const orderSchema = new mongoose.Schema(
       postalCode: { type: String, required: true }
     },
     total: { type: Number, required: true },
-    status: { type: String, default: "pending" }
+    status: {
+      type: String,
+      enum: ["pending", "processing", "shipped", "delivered", "cancelled", "refunded"],
+      default: "pending"
+    },
+    paymentIntentId: { type: String, default: "" },
+    paymentStatus: { type: String, enum: ["paid", "refunded"], default: "paid" },
+    refund: {
+      id: String,
+      reason: String,
+      refundedAt: Date
+    }
   },
   { timestamps: true }
 );

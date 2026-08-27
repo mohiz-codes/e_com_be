@@ -3,11 +3,11 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 
 function createToken(user) {
-  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+  return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
 }
 
 function userResponse(user) {
-  return { id: user._id, name: user.name, email: user.email, createdAt: user.createdAt };
+  return { id: user._id, name: user.name, email: user.email, role: user.role, createdAt: user.createdAt };
 }
 
 async function signup(req, res) {
